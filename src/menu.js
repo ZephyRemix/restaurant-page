@@ -1,63 +1,45 @@
 import "./styles/styles.css";
 import "./styles/_card.css";
 
+const menuItems = {
+    coffee: {
+        title: 'Coffee & Espresso',
+        items: ['Americano', 'Latte', 'Cappucino', 'Mocha']
+    },
+    refreshers: {
+        title: 'Teas & Refreshers',
+        items: ['Matcha Latte', 'Chai Latte', 'Iced Lemonade', 'Berry Smoothie']
+    },
+    lightBites: {
+        title: 'Light Bites',
+        items: ['Avocado Toast', 'Grilled Cheese', 'Caesar Salad']
+    }
+}
+
 export const renderMenuPage = () => {
     const contentDiv = document.querySelector('#content');
 
     const menuCard = document.createElement('div');
     menuCard.classList.add('card', 'w-50', 'p-3');
 
-    const coffeeMenu = generateCoffeeMenu();
+    Object.entries(menuItems).forEach(([category, { title, items }]) => {
+        const menuSection = generateMenuSection(category, title, items);
+        menuCard.appendChild(menuSection);
+    });
 
-    const refreshersMenu = generateRefreshersMenu();
-
-    const lightBitesMenu = generateLightBitesMenu();
-
-    menuCard.appendChild(coffeeMenu);
-    menuCard.appendChild(refreshersMenu);
-    menuCard.appendChild(lightBitesMenu);
     contentDiv.appendChild(menuCard);
 }
 
-function generateCoffeeMenu() {
-    const menuCoffeeDiv = generateDiv("coffee");
-    const menuCoffeeHeader = generateCardHeader('Coffee & Espresso');
-    const menuCoffeeList = generateList(['Americano', 'Latte', 'Cappucino', 'Mocha']);
-
-    
-    menuCoffeeDiv.appendChild(menuCoffeeHeader);
-    menuCoffeeDiv.appendChild(menuCoffeeList);
-
-    return menuCoffeeDiv;
-}
-
-function generateRefreshersMenu() {
-    const menuRefreshersDiv = generateDiv("refreshers");
-    const menuRefreshersHeader = generateCardHeader('Teas & Refreshers');
-    const menuRefreshersList = generateList(['Matcha Latte', 'Chai Latte', 'Iced Lemonade', 'Berry Smoothie']);
-
-    
-    menuRefreshersDiv.appendChild(menuRefreshersHeader);
-    menuRefreshersDiv.appendChild(menuRefreshersList);
-
-    return menuRefreshersDiv;
-}
-
-function generateLightBitesMenu() {
-    const menuLightBitesDiv = generateDiv("light-bites");
-    const menuLightBitesHeader = generateCardHeader('Light Bites');
-    const menuLightBitesList = generateList(['Avocado Toast', 'Grilled Cheese', 'Caesar Salad']);
-
-    
-    menuLightBitesDiv.appendChild(menuLightBitesHeader);
-    menuLightBitesDiv.appendChild(menuLightBitesList);
-
-    return menuLightBitesDiv;
-}
-
-function generateDiv(category) {
+function generateMenuSection(category, title, items) {
     const menuDiv = document.createElement('div');
     menuDiv.classList.add(category);
+
+    const menuHeader = generateCardHeader(title);
+    const menuList = generateList(items);
+
+    menuDiv.appendChild(menuHeader);
+    menuDiv.appendChild(menuList);
+
     return menuDiv;
 }
 
