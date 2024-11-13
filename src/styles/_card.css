@@ -1,0 +1,8 @@
+.card {
+    justify-self: center;
+}
+
+.card-header.custom-card {
+    background-color: #7D5C3B;
+    color: white;
+}
